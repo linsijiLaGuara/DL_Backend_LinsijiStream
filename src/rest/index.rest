@@ -1,0 +1,24 @@
+POST http://127.0.0.1:3000/api/users/register
+Content-Type: application/json
+
+{
+    "email": "yoselinsilvao@gmail.com", 
+    "password": "Linsi$123", 
+    "nombre ": "Maria",
+    "imagen":"javaScrip"
+}
+
+###
+POST http://127.0.0.1:3000/api/users/login
+Content-Type: application/json
+
+
+{
+    "email": "yoselinsilvao@gmail.com",
+    "password": "Linsi$123"
+}
+
+###
+GET  http://127.0.0.1:3000/api/users/perfil
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Inlvc2VsaW5zaWx2YW9AZ21haWwuY29tIiwiaWF0IjoxNzE3ODY5MzMwfQ.uZjtknir_VXXn7MMXKUpXEm1FKjbMhyGxXdQaH6xY2I
