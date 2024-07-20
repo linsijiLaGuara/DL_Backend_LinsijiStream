@@ -1,16 +1,16 @@
 const database = require("../dbConfig");
 
 const { handleHashPassword } = require("../../utils/utils");
-const addUser = async (email, password, nombre, imagen) => {
+const addUser = async (email, password, nombre, genero) => {
   try {
     const passwordHash = await handleHashPassword(password);
 
     const consulta = `
-      INSERT INTO usuario (email, password, nombre, imagen,genero) 
-      VALUES ($1, $2, $3, $4, $5) 
+      INSERT INTO usuario (email, password, nombre, genero) 
+      VALUES ($1, $2, $3, $4) 
       RETURNING *;
     `;
-    const values = [email, passwordHash, nombre, imagen, genero];
+    const values = [email, passwordHash, nombre, genero];
 
     const { rowCount, rows } = await database.query(consulta, values);
 

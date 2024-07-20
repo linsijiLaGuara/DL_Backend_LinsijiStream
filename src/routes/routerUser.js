@@ -9,6 +9,7 @@ const { UsersValidatorCollection } = require("../validators/usersValidotor");
 
 const { handleLoginMiddleware } = require("../middlewares/handleLogin");
 const { authMiddleware } = require("../middlewares/authMiddleware");
+const { searchArtist } = require("../controllers/searchController");
 
 router.post(
   "/register",
@@ -24,5 +25,5 @@ router.post(
 );
 
 router.get("/welcome", authMiddleware, get_profile_controller);
-
+router.get("/search", authMiddleware, searchArtist);
 module.exports = router;

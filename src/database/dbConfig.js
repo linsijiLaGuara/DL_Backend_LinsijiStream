@@ -4,7 +4,7 @@ const pool = new Pool({
   user: "lin",
   host: "localhost",
   password: "lin",
-  database: "softjobs",
+  database: "db_linsijistream",
   port: 5432,
   allowExitOnIdle: true,
 });
