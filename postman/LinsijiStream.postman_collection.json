@@ -1,0 +1,164 @@
+{
+	"info": {
+		"_postman_id": "14b20d67-e1c7-4de1-b872-aadd6c8c10af",
+		"name": "LinsijiStream",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "5507815"
+	},
+	"item": [
+		{
+			"name": "registro",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"ycsilva9214@gmail.com\",\r\n    \"password\": \"Linsi$123\",\r\n    \"nombre\": \"Maria\",\r\n    \"imagen\": \"femenino.png\",\r\n    \"genero\": \"femenino\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/users/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"users",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"ycsilva9214@gmail.com\",\r\n    \"password\": \"Linsi$12\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/users/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"users",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "obtenerwelcome",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1hcmlhY2Fyb2xpbmFqOWV3MDhAZ21haWwuY29tIiwiaWF0IjoxNzIxMTU0MDM0fQ.HT1kIFNnQh5am6GWT8YkTSQVyefM-RLzjqiLOSVleek",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "http://127.0.0.1:3000/api/users/welcome",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"users",
+						"welcome"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "obtenerArtista",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1hcmlhY2Fyb2xpbmFqOWV3MDhAZ21haWwuY29tIiwiaWF0IjoxNzIxMTU0MDM0fQ.HT1kIFNnQh5am6GWT8YkTSQVyefM-RLzjqiLOSVleek",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "http://127.0.0.1:3000/api/users/search?query=Beyoncé",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"users",
+						"search"
+					],
+					"query": [
+						{
+							"key": "query",
+							"value": "Beyoncé"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

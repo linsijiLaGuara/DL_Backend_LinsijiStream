@@ -17,7 +17,7 @@ const handleLoginMiddleware = async (req, res, next) => {
       next();
     } else {
       throw {
-        code: 403,
+        code: 401,
         message: "Error de credenciales",
         origin: "Authorization",
       };
