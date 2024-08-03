@@ -17,16 +17,6 @@ const add_New_user_controller = async (req, res, next) => {
   }
 };
 
-const get_profile_controller = async (req, res, next) => {
-  try {
-    const { email } = req.user;
-
-    res.send({ user: { email } });
-  } catch (error) {
-    next(error);
-  }
-};
-
 const login_controller = async (req, res, next) => {
   try {
     const token = req.token;
@@ -40,5 +30,4 @@ const login_controller = async (req, res, next) => {
 module.exports = {
   add_New_user_controller,
   login_controller,
-  get_profile_controller,
 };

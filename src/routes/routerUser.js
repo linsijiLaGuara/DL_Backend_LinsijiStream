@@ -1,10 +1,14 @@
+// routes.js
 const router = require("express").Router();
 
 const {
   add_New_user_controller,
-  get_profile_controller,
   login_controller,
 } = require("../controllers/usersController");
+const {
+  get_all_artists_controller,
+} = require("../controllers/artistController");
+
 const { UsersValidatorCollection } = require("../validators/usersValidotor");
 
 const { handleLoginMiddleware } = require("../middlewares/handleLogin");
@@ -24,6 +28,7 @@ router.post(
   login_controller
 );
 
-router.get("/welcome", authMiddleware, get_profile_controller);
+router.get("/welcome", authMiddleware, get_all_artists_controller);
 router.get("/search", authMiddleware, searchArtist);
+
 module.exports = router;
