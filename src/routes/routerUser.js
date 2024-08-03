@@ -7,6 +7,7 @@ const {
 } = require("../controllers/usersController");
 const {
   get_all_artists_controller,
+  get_all_album_controller,
 } = require("../controllers/artistController");
 
 const { UsersValidatorCollection } = require("../validators/usersValidotor");
@@ -28,7 +29,12 @@ router.post(
   login_controller
 );
 
-router.get("/welcome", authMiddleware, get_all_artists_controller);
+router.get(
+  "/welcome",
+  authMiddleware,
+  get_all_artists_controller,
+  get_all_album_controller
+);
 router.get("/search", authMiddleware, searchArtist);
 
 module.exports = router;

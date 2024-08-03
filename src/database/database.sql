@@ -38,3 +38,11 @@ CREATE TABLE cancion (
     PRIMARY KEY (id)
 );
 SELECT * FROM cancion;
+
+CREATE TABLE album (
+    id SERIAL NOT NULL,
+    nombre VARCHAR(100) NOT NULL,
+    img VARCHAR(500) NOT NULL,
+    PRIMARY KEY (id)
+);
+SELECT * FROM album;
