@@ -16,6 +16,7 @@ const { handleLoginMiddleware } = require("../middlewares/handleLogin");
 const { authMiddleware } = require("../middlewares/authMiddleware");
 const { searchArtist } = require("../controllers/searchController");
 const { get_all_Song } = require("../controllers/songController");
+const { searchAlbum } = require("../controllers/albumController");
 router.post(
   "/register",
   UsersValidatorCollection.addValidator,
@@ -36,6 +37,7 @@ router.get(
   get_all_album_controller
 );
 router.get("/search", authMiddleware, searchArtist);
+router.get("/searchAlbum", authMiddleware, searchAlbum);
 router.get("/album", authMiddleware, get_all_album_controller);
 
 router.get("/song", authMiddleware, get_all_Song);

@@ -38,7 +38,12 @@ const updateAlbum = async (id, albumData) => {
     WHERE id = $4
     RETURNING *;
   `;
-  const { rows } = await database.query(consulta, [nombre, img, id_artista, id]);
+  const { rows } = await database.query(consulta, [
+    nombre,
+    img,
+    id_artista,
+    id,
+  ]);
 
   return rows[0];
 };
@@ -59,6 +64,45 @@ const getAlbumsByName = async (nombre) => {
   return rows;
 };
 
+// Obtener álbumes y canciones por ID de artista
+const getAlbumsWithSongsByArtistId = async (artistId) => {
+  const consulta = `
+  SELECT a.id as album_id, a.nombre as album_nombre, a.img as album_img, 
+           c.id as cancion_id, c.titulo_cancion, c.duracion, c.genero_musical, c.url_cancion
+    FROM album a
+    LEFT JOIN cancion_artista ca ON a.id_artista = ca.id_artista
+    LEFT JOIN cancion c ON ca.id_cancion = c.id
+    WHERE a.id = $1
+  `;
+  const { rows } = await database.query(consulta, [artistId]);
+
+  // Reorganiza los resultados en una estructura de datos útil
+  const albums = {};
+  rows.forEach((row) => {
+    if (!albums[row.album_id]) {
+      // Si el álbum aún no está en el objeto, lo crea
+      albums[row.album_id] = {
+        id: row.album_id,
+        nombre: row.album_nombre,
+        img: row.album_img,
+        canciones: [],
+      };
+    }
+    if (row.cancion_id) {
+      // Solo agrega canciones si existen (debido al LEFT JOIN)
+      albums[row.album_id].canciones.push({
+        id: row.cancion_id,
+        titulo: row.titulo_cancion,
+        duracion: row.duracion,
+        genero_musical: row.genero_musical,
+        url: row.url_cancion,
+      });
+    }
+  });
+
+  return Object.values(albums); // Devuelve solo los valores del objeto como un array
+};
+
 const albumCollection = {
   getAllAlbum,
   getAlbumById,
@@ -66,6 +110,7 @@ const albumCollection = {
   updateAlbum,
   deleteAlbum,
   getAlbumsByName,
+  getAlbumsWithSongsByArtistId,
 };
 
 module.exports = albumCollection;
