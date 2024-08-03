@@ -10,10 +10,10 @@ const searchArtist = async (req, res) => {
   }
 
   try {
-    const artista = await artisCollection.getArtista(query);
+    const artistas = await artisCollection.getArtistsByName(query); // Note que cambié el nombre a artistas para reflejar que podría haber múltiples resultados
 
-    if (artista) {
-      res.status(200).send(artista);
+    if (artistas.length > 0) {
+      res.status(200).send(artistas);
     } else {
       res.status(404).send({ message: "Artista no encontrado." });
     }

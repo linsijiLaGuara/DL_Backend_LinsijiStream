@@ -30,11 +30,11 @@ CREATE TABLE artista (
 SELECT * FROM artista;
 CREATE TABLE cancion (
     id SERIAL NOT NULL,
-    titulo_cacion VARCHAR(100) NOT NULL,
-    nombre_artista VARCHAR(50) NOT NULL,
+    titulo_cancion VARCHAR(100) NOT NULL,
     reproducciones INTEGER DEFAULT 0,
-    duracion INTEGER,
+    duracion VARCHAR(10),
     genero_musical VARCHAR(50),
+    url_cancion VARCHAR(200)
     PRIMARY KEY (id)
 );
 SELECT * FROM cancion;
@@ -43,6 +43,23 @@ CREATE TABLE album (
     id SERIAL NOT NULL,
     nombre VARCHAR(100) NOT NULL,
     img VARCHAR(500) NOT NULL,
+    id_artista integer,
     PRIMARY KEY (id)
 );
 SELECT * FROM album;
+CREATE TABLE cancion_artista (
+    id SERIAL NOT NULL,
+    artista_principal VARCHAR(50) NOT NULL,
+	 id_cancion integer NOT NULL,
+	id_artista integer NOT NULL,
+     FOREIGN KEY (id_cancion) REFERENCES cancion (id),
+	FOREIGN KEY (id_artista) REFERENCES artista (id)
+);
+ALTER TABLE cancion
+ ADD CONSTRAINT fk_cancion_album
+FOREIGN KEY (id_album) REFERENCES album(id)
+
+ALTER TABLE album
+ADD COLUMN id_artista integer ,
+ ADD CONSTRAINT fk_artista_album
+FOREIGN KEY (id_artista) REFERENCES artista(id)
