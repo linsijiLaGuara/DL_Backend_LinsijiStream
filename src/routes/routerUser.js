@@ -36,5 +36,5 @@ router.get(
   get_all_album_controller
 );
 router.get("/search", authMiddleware, searchArtist);
-
+router.get("/album", authMiddleware, get_all_album_controller);
 module.exports = router;
