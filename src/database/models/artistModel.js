@@ -7,6 +7,12 @@ const getAllArtists = async () => {
 
   return rows;
 };
+//paginacion de entrega de artista
+const getPaginationArtist = async (limit, offset) => {
+  const consulta = "SELECT * FROM artista LIMIT $1 OFFSET $2;";
+  const { rows } = await database.query(consulta, [limit, offset]);
+  return rows;
+};
 
 // Obtener un artista por ID
 const getArtistById = async (id) => {
@@ -24,7 +30,11 @@ const createArtist = async (artistData) => {
     VALUES ($1, $2, $3)
     RETURNING *;
   `;
-  const { rows } = await database.query(consulta, [nombre_artista, imagen, verificacion]);
+  const { rows } = await database.query(consulta, [
+    nombre_artista,
+    imagen,
+    verificacion,
+  ]);
 
   return rows[0];
 };
@@ -38,7 +48,12 @@ const updateArtist = async (id, artistData) => {
     WHERE id = $4
     RETURNING *;
   `;
-  const { rows } = await database.query(consulta, [nombre_artista, imagen, verificacion, id]);
+  const { rows } = await database.query(consulta, [
+    nombre_artista,
+    imagen,
+    verificacion,
+    id,
+  ]);
 
   return rows[0];
 };
@@ -84,7 +99,11 @@ const linkSongToArtist = async (linkData) => {
     VALUES ($1, $2, $3)
     RETURNING *;
   `;
-  const { rows } = await database.query(consulta, [artista_principal, id_cancion, id_artista]);
+  const { rows } = await database.query(consulta, [
+    artista_principal,
+    id_cancion,
+    id_artista,
+  ]);
 
   return rows[0];
 };
@@ -92,10 +111,11 @@ const linkSongToArtist = async (linkData) => {
 // Obtener artistas por nombre similar, insensible a mayúsculas/minúsculas
 const getArtistsByName = async (name) => {
   if (name.length < 2) {
-    return [];  // No realizar consulta si la longitud del nombre es menor a 2 caracteres
+    return []; // No realizar consulta si la longitud del nombre es menor a 2 caracteres
   }
-  const consulta = "SELECT * FROM artista WHERE LOWER(nombre_artista) LIKE LOWER($1);";
-  const namePattern = `%${name}%`;  // Agrega '%' antes y después para búsqueda parcial
+  const consulta =
+    "SELECT * FROM artista WHERE LOWER(nombre_artista) LIKE LOWER($1);";
+  const namePattern = `%${name}%`; // Agrega '%' antes y después para búsqueda parcial
   const { rows } = await database.query(consulta, [namePattern]);
   return rows;
 };
@@ -109,7 +129,8 @@ const artistCollection = {
   getSongsByArtistId,
   getAlbumsByArtistId,
   linkSongToArtist,
-  getArtistsByName
+  getArtistsByName,
+  getPaginationArtist,
 };
 
 module.exports = artistCollection;

@@ -1,5 +1,6 @@
 require("dotenv").config();
 const jwt = require("jsonwebtoken");
+const { UsersCollection } = require("../database/models/usersModel");
 
 const authMiddleware = async (req, res, next) => {
   try {
@@ -19,8 +20,15 @@ const authMiddleware = async (req, res, next) => {
 
     const decoded = jwt.verify(token, "JWT_SECRET");
 
+    const user = await UsersCollection.getUserByEmail(decoded.email);
+
+    if (!user) {
+      return res.status(401).json({ message: "User not found" });
+    }
+
     req.user = {
       email: decoded.email,
+      nombre: user.nombre,
     };
 
     next();

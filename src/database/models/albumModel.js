@@ -9,12 +9,11 @@ const getAllAlbum = async () => {
 };
 // Obtener todos los álbumes con paginación
 
-const getAllAlbums = async (limit, offset) => {
+const getPaginationAlbums = async (limit, offset) => {
   const consulta = "SELECT * FROM album LIMIT $1 OFFSET $2;";
   const { rows } = await database.query(consulta, [limit, offset]);
   return rows;
 };
-
 
 // Obtener un álbum por ID
 const getAlbumById = async (id) => {
@@ -119,7 +118,7 @@ const albumCollection = {
   deleteAlbum,
   getAlbumsByName,
   getAlbumsWithSongsByArtistId,
-  getAllAlbums,
+  getPaginationAlbums,
 };
 
 module.exports = albumCollection;

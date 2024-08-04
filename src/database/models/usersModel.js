@@ -1,6 +1,7 @@
 const database = require("../dbConfig");
-
 const { handleHashPassword } = require("../../utils/utils");
+
+// Create - Añadir un nuevo usuario
 const addUser = async (email, password, nombre, genero) => {
   try {
     const passwordHash = await handleHashPassword(password);
@@ -38,32 +39,89 @@ const addUser = async (email, password, nombre, genero) => {
   }
 };
 
+// Read - Obtener un usuario por email
 const getUserByEmail = async (email) => {
   const consulta = "SELECT * FROM usuario WHERE email = $1;";
   const values = [email];
 
   const { rows } = await database.query(consulta, values);
 
-  const user = rows[0];
-
-  return user.email;
+  return rows[0];
 };
 
+// Read - Obtener la contraseña de un usuario por email
 const getPasswordUserByEmail = async (email) => {
   const consulta = "SELECT * FROM usuario WHERE email = $1;";
   const values = [email];
 
   const { rows } = await database.query(consulta, values);
 
-  const user = rows[0];
+  return rows[0].password;
+};
 
-  return user.password;
+// Read - Obtener todos los usuarios
+const getAllUsers = async () => {
+  const consulta = "SELECT * FROM usuario;";
+
+  const { rows } = await database.query(consulta);
+
+  return rows;
+};
+
+// Update - Actualizar un usuario por ID
+const updateUser = async (id, email, nombre, genero) => {
+  const consulta = `
+    UPDATE usuario
+    SET email = $1, nombre = $2, genero = $3
+    WHERE id = $4
+    RETURNING *;
+  `;
+  const values = [email, nombre, genero, id];
+
+  const { rowCount, rows } = await database.query(consulta, values);
+
+  if (rowCount) {
+    return {
+      msg: "Usuario actualizado",
+      user: rows[0],
+    };
+  } else {
+    return {
+      msg: "Usuario no encontrado",
+    };
+  }
+};
+
+// Delete - Eliminar un usuario por ID
+const deleteUser = async (id) => {
+  const consulta = `
+    DELETE FROM usuario
+    WHERE id = $1
+    RETURNING *;
+  `;
+  const values = [id];
+
+  const { rowCount, rows } = await database.query(consulta, values);
+
+  if (rowCount) {
+    return {
+      msg: "Usuario eliminado",
+      user: rows[0],
+    };
+  } else {
+    return {
+      msg: "Usuario no encontrado",
+    };
+  }
 };
 
 const UsersCollection = {
   getPasswordUserByEmail,
   getUserByEmail,
   addUser,
+  getAllUsers,
+  updateUser,
+  deleteUser,
 };
 
 module.exports = {
