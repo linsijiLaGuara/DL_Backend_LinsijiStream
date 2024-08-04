@@ -1,12 +1,20 @@
 const database = require("../dbConfig");
+const consulta = "SELECT * FROM album;";
 
 // Obtener todos los álbumes
 const getAllAlbum = async () => {
-  const consulta = "SELECT * FROM album;";
   const { rows } = await database.query(consulta);
 
   return rows;
 };
+// Obtener todos los álbumes con paginación
+
+const getAllAlbums = async (limit, offset) => {
+  const consulta = "SELECT * FROM album LIMIT $1 OFFSET $2;";
+  const { rows } = await database.query(consulta, [limit, offset]);
+  return rows;
+};
+
 
 // Obtener un álbum por ID
 const getAlbumById = async (id) => {
@@ -68,7 +76,7 @@ const getAlbumsByName = async (nombre) => {
 const getAlbumsWithSongsByArtistId = async (artistId) => {
   const consulta = `
   SELECT a.id as album_id, a.nombre as album_nombre, a.img as album_img, 
-           c.id as cancion_id, c.titulo_cancion, c.duracion, c.genero_musical, c.url_cancion
+  c.id as cancion_id, c.titulo_cancion, c.duracion, c.genero_musical, c.url_cancion
     FROM album a
     LEFT JOIN cancion_artista ca ON a.id_artista = ca.id_artista
     LEFT JOIN cancion c ON ca.id_cancion = c.id
@@ -111,6 +119,7 @@ const albumCollection = {
   deleteAlbum,
   getAlbumsByName,
   getAlbumsWithSongsByArtistId,
+  getAllAlbums,
 };
 
 module.exports = albumCollection;
