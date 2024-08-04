@@ -79,7 +79,7 @@ const getAlbumsWithSongsByArtistId = async (artistId) => {
     FROM album a
     LEFT JOIN cancion_artista ca ON a.id_artista = ca.id_artista
     LEFT JOIN cancion c ON ca.id_cancion = c.id
-    WHERE a.id = $1
+    WHERE a.id_artista = $1
   `;
   const { rows } = await database.query(consulta, [artistId]);
 
@@ -107,7 +107,7 @@ const getAlbumsWithSongsByArtistId = async (artistId) => {
     }
   });
 
-  return Object.values(albums); // Devuelve solo los valores del objeto como un array
+  return Object.values(albums);
 };
 
 const albumCollection = {

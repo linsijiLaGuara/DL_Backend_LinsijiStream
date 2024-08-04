@@ -44,8 +44,11 @@ const get_all_album_controller = async (req, res, next) => {
   }
 };
 
+
+
 module.exports = {
   searchAlbum,
   get_pag_album_controller,
   get_all_album_controller,
+  
 };

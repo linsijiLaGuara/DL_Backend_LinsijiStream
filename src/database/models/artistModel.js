@@ -111,7 +111,7 @@ const linkSongToArtist = async (linkData) => {
 // Obtener artistas por nombre similar, insensible a mayúsculas/minúsculas
 const getArtistsByName = async (name) => {
   if (name.length < 2) {
-    return []; // No realizar consulta si la longitud del nombre es menor a 2 caracteres
+    return [];
   }
   const consulta =
     "SELECT * FROM artista WHERE LOWER(nombre_artista) LIKE LOWER($1);";
