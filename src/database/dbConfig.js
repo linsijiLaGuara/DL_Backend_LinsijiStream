@@ -1,12 +1,10 @@
 const { Pool } = require("pg");
+require("dotenv").config();
 
 const pool = new Pool({
-  user: "lin",
-  host: "localhost",
-  password: "lin",
-  database: "db_linsijistream",
-  port: 5432,
-  allowExitOnIdle: true,
+
+  connectionString: process.env.DATABASE_URL
+
 });
 
 module.exports = {

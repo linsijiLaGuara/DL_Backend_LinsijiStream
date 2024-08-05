@@ -44,6 +44,5 @@ router.get("/albums", authMiddleware, get_all_album_controller);
 router.get("/search", authMiddleware, searchArtist);
 router.get("/searchAlbum", authMiddleware, searchAlbum);
 router.get("/searchAlbumsByArtist", authMiddleware, getAlbumsByArtistName);
-
 router.get("/song", authMiddleware, get_all_Song);
 module.exports = router;
